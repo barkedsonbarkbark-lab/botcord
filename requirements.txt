@@ -1,0 +1,8 @@
+kivy==2.3.0
+kivymd==1.2.0
+pillow
+requests
+cryptography
+websocket-client
+buildozer
+cython
