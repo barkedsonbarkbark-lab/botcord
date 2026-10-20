@@ -7,6 +7,7 @@ A Discord-bot-token console app (Android, Kivy/KivyMD).
 - Voice channels show live presence only (no audio; Discord needs E2EE/DAVE).
 - Turn on "Message Content Intent" in the Developer Portal to read server messages.
 - Saved logins are stored encrypted, locally on-device only.
+
 ## Getting the APK (works from Windows, no Linux needed)
 
 1. Create an empty GitHub repository and push this folder to it

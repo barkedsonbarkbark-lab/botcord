@@ -43,7 +43,23 @@ jobs:
             buildozer-${{ runner.os }}-
 
       - name: Build debug APK
-        run: buildozer -v android debug
+        run: |
+          set -o pipefail
+          buildozer -v android debug 2>&1 | tee build.log
+
+      - name: Show the real error (only if the build failed)
+        if: failure()
+        run: |
+          n=$(grep -n "Command failed" build.log | head -1 | cut -d: -f1)
+          echo "=== 150 lines before Buildozer's 'Command failed' ==="
+          if [ -n "$n" ]; then sed -n "$((n>150 ? n-150 : 1)),${n}p" build.log; else tail -n 150 build.log; fi
+
+      - name: Upload full build log (only if the build failed)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
